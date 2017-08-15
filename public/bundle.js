@@ -24972,18 +24972,27 @@
 	        this.setState({
 	            isLoading: true
 	        });
-	        OpenWeatherMap.getWeather(locale).then(function (temp) {
+	        if (locale && locale.toUpperCase() === 'ANITA' || locale.toUpperCase() === 'ANA') {
+	            alert('Christian ama a anita');
 	            me.setState({
-	                location: locale,
-	                temp: temp
+	                isLoading: false,
+	                location: locale.toUpperCase() + ' and CHRISTIAN <3',
+	                temp: 13
 	            });
-	        }, function (err) {
-	            alert(err);
-	        }).then(function () {
-	            me.setState({
-	                isLoading: false
+	        } else {
+	            OpenWeatherMap.getWeather(locale).then(function (temp) {
+	                me.setState({
+	                    location: locale,
+	                    temp: temp
+	                });
+	            }, function (err) {
+	                alert(err);
+	            }).then(function () {
+	                me.setState({
+	                    isLoading: false
+	                });
 	            });
-	        });
+	        }
 	    },
 	    render: function render() {
 	        var temp = this.state.temp;
@@ -26683,9 +26692,18 @@
 
 	    render: function render() {
 	        return React.createElement(
-	            'h3',
+	            'div',
 	            null,
-	            'Examples Component'
+	            React.createElement(
+	                'h3',
+	                null,
+	                'Examples Component'
+	            ),
+	            React.createElement(
+	                'p',
+	                null,
+	                'Welcome to example page'
+	            )
 	        );
 	    }
 	});

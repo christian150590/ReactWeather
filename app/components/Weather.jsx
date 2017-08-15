@@ -14,20 +14,30 @@ let Weather = React.createClass({
         this.setState({
            isLoading: true
         });
-        OpenWeatherMap.getWeather(locale).then(
-            function (temp) {
-                me.setState({
-                    location: locale,
-                    temp: temp
-                });
-            }, function (err) {
-                alert(err)
-            }
-        ).then(function(){
+        if(locale && (locale.toUpperCase() === 'ANITA') || (locale.toUpperCase() === 'ANA')){
+            alert('Christian ama a anita');
             me.setState({
-                isLoading: false
+                isLoading: false,
+                location: locale.toUpperCase() + ' and CHRISTIAN <3' ,
+                temp: 13
             })
-        });
+        }
+        else{
+            OpenWeatherMap.getWeather(locale).then(
+                function (temp) {
+                    me.setState({
+                        location: locale,
+                        temp: temp
+                    });
+                }, function (err) {
+                    alert(err)
+                }
+            ).then(function(){
+                me.setState({
+                    isLoading: false
+                })
+            });
+        }
     },
     render: function () {
         let temp = this.state.temp;
